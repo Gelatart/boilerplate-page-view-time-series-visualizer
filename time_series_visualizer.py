@@ -39,6 +39,9 @@ def draw_bar_plot():
 
     # Draw bar plot
     plot = sns.catplot(x="year", y="averages", data=df_bar, kind="bar", hue="month")
+    plot.set_axis_labels("Years", "Average Page Views")
+    legend = plot._legend
+    legend.set_title("Months")
 
     #trying to get figure
     fig = plot.figure
@@ -58,10 +61,13 @@ def draw_box_plot():
     df_box['month'] = [d.strftime('%b') for d in df_box.date]
 
     # Draw box plots (using Seaborn)
-    plot = sns.catplot(x="year", y="value", data=df_box, kind="box")
+    fig, axes = plt.subplots(1, 2)
+
+    plot1 = sns.catplot(x="year", y="value", data=df_box, kind="box", ax=axes[0])
+    plot2 = sns.catplot(x="month", y="value", data=df_box, kind="box", ax=axes[1])
 
     #trying to get figure
-    fig = plot.figure
+    #fig = plot.figure
 
 
     # Save image and return fig (don't change this part)
