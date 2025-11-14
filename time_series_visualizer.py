@@ -21,7 +21,7 @@ def draw_line_plot():
     plt.title("Daily freeCodeCamp Forum Page Views 5/2016-12/2019")
     plt.xlabel("Date")
     plt.ylabel("Page Views")
-    plt.show()
+    #plt.show()
 
     #get current figure
     fig = plt.gcf()
@@ -39,10 +39,10 @@ def draw_bar_plot():
 
     # Draw bar plot
     plot = sns.catplot(x="year", y="averages", data=df_bar, kind="bar", hue="month")
-    plot.set_axis_labels("Years", "Average Page Views")
     legend = plot._legend
     legend.set_title("Months")
-
+    plot.set_axis_labels("Years", "Average Page Views")
+    
     #trying to get figure
     fig = plot.figure
 
@@ -63,8 +63,17 @@ def draw_box_plot():
     # Draw box plots (using Seaborn)
     fig, axes = plt.subplots(1, 2)
 
-    plot1 = sns.catplot(x="year", y="value", data=df_box, kind="box", ax=axes[0])
-    plot2 = sns.catplot(x="month", y="value", data=df_box, kind="box", ax=axes[1])
+    month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+    plot1 = sns.boxplot(x="year", y="value", data=df_box, ax=axes[0])
+    plot2 = sns.boxplot(x="month", y="value", data=df_box, order=month_order, ax=axes[1])
+
+    axes[0].set_title("Year-wise Box Plot (Trend)")
+    axes[0].set_xlabel("Year")
+    axes[0].set_ylabel("Page Views")
+    axes[1].set_title("Month-wise Box Plot (Seasonality)")
+    axes[1].set_xlabel("Month")
+    axes[1].set_ylabel("Page Views")
 
     #trying to get figure
     #fig = plot.figure
