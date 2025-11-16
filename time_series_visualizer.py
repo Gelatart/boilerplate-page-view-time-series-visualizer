@@ -4,6 +4,8 @@ import seaborn as sns
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
+import calendar
+
 # Import data (Make sure to parse dates. Consider setting index column to 'date'.)
 df = pd.read_csv('fcc-forum-pageviews.csv', index_col='date', parse_dates=True)
 
@@ -35,13 +37,17 @@ def draw_line_plot():
 def draw_bar_plot():
     # Copy and modify data for monthly bar plot
     df_bar = df.copy()
-    df_bar = df_bar.groupby([df.index.year.rename('year'), df.index.month.rename('month')])['value'].mean().reset_index(name='averages')
+    df_bar = df_bar.groupby([df.index.year.rename('year'), df.index.month_name().rename('month')])['value'].mean().reset_index(name='averages')
 
     # Draw bar plot
-    plot = sns.catplot(x="year", y="averages", data=df_bar, kind="bar", hue="month")
-    legend = plot._legend
-    legend.set_title("Months")
-    plot.set_axis_labels("Years", "Average Page Views")
+    fig, ax = plt.subplots()
+
+    month_order = list(calendar.month_name)[1:]
+
+    plot = sns.barplot(x="year", y="averages", data=df_bar, hue="month", hue_order=month_order)
+    ax.set_title("Months")
+    ax.set_xlabel("Years")
+    ax.set_ylabel("Average Page Views")
     
     #trying to get figure
     fig = plot.figure
