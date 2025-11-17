@@ -23,7 +23,6 @@ def draw_line_plot():
     plt.title("Daily freeCodeCamp Forum Page Views 5/2016-12/2019")
     plt.xlabel("Date")
     plt.ylabel("Page Views")
-    #plt.show()
 
     #get current figure
     fig = plt.gcf()
@@ -80,10 +79,6 @@ def draw_box_plot():
     axes[1].set_title("Month-wise Box Plot (Seasonality)")
     axes[1].set_xlabel("Month")
     axes[1].set_ylabel("Page Views")
-
-    #trying to get figure
-    #fig = plot.figure
-
 
     # Save image and return fig (don't change this part)
     fig.savefig('box_plot.png')
